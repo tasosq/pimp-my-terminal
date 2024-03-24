@@ -39,6 +39,7 @@ New-Item -Path $PROFILE -Type File -Force
 Write-Host "Created a new PowerShell Profile"
 
 Add-Content -Path $PROFILE "oh-my-posh init pwsh --config '$env:POSH_THEMES_PATH\$Theme' | Invoke-Expression"
+Add-Content -Path $PROFILE "Import-Module -Name Terminal-Icons"
 
 Write-Host "Updating Windows Terminal Config...";
 
