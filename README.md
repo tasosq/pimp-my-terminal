@@ -7,6 +7,9 @@ This repo includes two installation scripts to streamline the installation & set
 - [Oh-my-posh](https://ohmyposh.dev/)
 - [Terminal-Icons](https://github.com/devblackops/Terminal-Icons)
 
+## Showcase
+![image](https://github.com/tasosq/pimp-my-terminal/assets/105006739/a512f3df-1749-49c5-a828-bbe57cfc0091)
+
 ## Usage
 
 1. Clone the repo.
