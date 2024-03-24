@@ -9,7 +9,7 @@ winget install oh-my-posh -s msstore --accept-package-agreements --accept-source
 winget install JanDeDobbeleer.OhMyPosh -s winget --accept-package-agreements --accept-source-agreements
 
 Write-Host "Installing terminal icons..."
-Install-Module -Name Terminal-Icons -Repository PSGallery -Force
+Install-Module -Name Terminal-Icons -Repository PSGallery -Force -Scope CurrentUser
 
 Write-Host "Please exit Windows PowerShell and Launch Windows Terminal from Start Menu. Then Run setup-shell-terminal to continue the setup.";
 
