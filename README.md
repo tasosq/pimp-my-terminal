@@ -10,7 +10,8 @@ This repo includes two installation scripts to streamline the installation & set
 
 ## Showcase
 
-![image](https://github.com/tasosq/pimp-my-terminal/assets/105006739/a512f3df-1749-49c5-a828-bbe57cfc0091)
+![image](https://github.com/tasosq/pimp-my-terminal/assets/105006739/f3a60d3c-2482-480c-a90a-8682604b2206)
+
 
 ## Usage
 
