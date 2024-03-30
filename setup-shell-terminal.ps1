@@ -1,6 +1,34 @@
 Write-Host "Initializing oh-my-posh..."
 oh-my-posh init pwsh | Invoke-Expression
 
+
+# Install Space Font
+choco install nerd-fonts-spacemono -y
+
+$PowerShellPathToJSON = "$env:LocalAppData\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
+
+$PowerShellSettings = Get-Content $PowerShellPathToJSON -raw | ConvertFrom-Json
+$PowerShellProfileId = "";
+$customfont = @"
+{
+    face : 'SpaceMono Nerd Font Mono'
+}
+"@
+
+$PowerShellSettings.profiles.list | % {
+    if ($_.name -eq 'PowerShell') {
+        $_ | Add-Member -Name "colorScheme" -Value "One Half Dark" -MemberType NoteProperty -Force
+        $_ | Add-Member -Name "font" -Value (ConvertFrom-Json $customfont) -MemberType NoteProperty -Force
+        $_ | Add-Member -Name "useAcrylic " -Value $False -MemberType NoteProperty -Force
+        $_ | Add-Member -Name "opacity" -Value 92 -MemberType NoteProperty -Force
+        $_ | Add-Member -Name "padding" -Value 12 -MemberType NoteProperty -Force
+        $PowerShellProfileId = $_.guid
+    }
+}
+
+$PowerShellSettings.defaultProfile = $PowerShellProfileId;
+
+$PowerShellSettings | ConvertTo-Json -depth 5 | set-content $PowerShellPathToJSON
 Write-Host "Fetching oh-my-posh themes:"
 Get-PoshThemes
 $DefaultTheme = "gruvbox"
@@ -8,9 +36,6 @@ $Theme = Read-Host -Prompt "Enter your preferred oh-my-posh theme from the above
 
 Write-Host "Installing fonts.."
 $Defaulted = $false;
-$Source = ".\fonts\*"
-$Destination = (New-Object -ComObject Shell.Application).Namespace(0x14)
-$TempFolder = "C:\Windows\Temp\Fonts"
 
 # Set Default theme to Theme, if the provided one did not exist
 if (-not (Test-Path "$env:POSH_THEMES_PATH\$Theme.omp.json")) {
@@ -18,15 +43,7 @@ if (-not (Test-Path "$env:POSH_THEMES_PATH\$Theme.omp.json")) {
     $Defaulted = $true;
 }
 
-New-Item $TempFolder -Type Directory -Force | Out-Null
 
-# Install Fonts
-Get-ChildItem -Path $Source -Include '*.ttf', '*.ttc', '*.otf' -Recurse | ForEach-Object {
-    $FontDestination = Join-Path -Path $Destination -ChildPath $_.Name
-    if (-not (Test-Path $FontDestination)) {
-        Copy-Item $_.FullName -Destination $Destination -Force
-    }
-}
 
 # Create new $PROFILE. If $PROFILE exists already, it is moved as a back-up and replaced by the new one
 if (Test-Path $PROFILE) {
@@ -51,30 +68,7 @@ Add-Content -Path $PROFILE "Import-Module -Name Terminal-Icons"
 
 Write-Host "Updating Windows Terminal Config...";
 
-$PowerShellPathToJSON = "$env:LocalAppData\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
 
-$PowerShellSettings = Get-Content $PowerShellPathToJSON -raw | ConvertFrom-Json
-$PowerShellProfileId = "";
-$customfont = @"
-{
-    face : 'RobotoMono Nerd Font Mono'
-}
-"@
-
-$PowerShellSettings.profiles.list | % {
-    if ($_.name -eq 'PowerShell') {
-        $_ | Add-Member -Name "colorScheme" -Value "One Half Dark" -MemberType NoteProperty -Force
-        $_ | Add-Member -Name "font" -Value (ConvertFrom-Json $customfont) -MemberType NoteProperty -Force
-        $_ | Add-Member -Name "useAcrylic " -Value $False -MemberType NoteProperty -Force
-        $_ | Add-Member -Name "opacity" -Value 92 -MemberType NoteProperty -Force
-        $_ | Add-Member -Name "padding" -Value 12 -MemberType NoteProperty -Force
-        $PowerShellProfileId = $_.guid
-    }
-}
-
-$PowerShellSettings.defaultProfile = $PowerShellProfileId;
-
-$PowerShellSettings | ConvertTo-Json -depth 5 | set-content $PowerShellPathToJSON
 
 Write-Host "Settings have been applied.";
 
@@ -83,7 +77,7 @@ Write-Host "Settings have been applied.";
 
 cls
 
- if ($Defaulted -eq $true) {
- Write-host "The oh-my-posh theme you provided could not be found. Defaulted to $DefaultTheme theme.";
- }
+if ($Defaulted -eq $true) {
+    Write-host "The oh-my-posh theme you provided could not be found. Defaulted to $DefaultTheme theme.";
+}
 exit
