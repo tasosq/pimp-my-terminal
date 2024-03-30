@@ -11,6 +11,9 @@ winget install JanDeDobbeleer.OhMyPosh -s winget --accept-package-agreements --a
 Write-Host "Installing terminal icons..."
 Install-Module -Name Terminal-Icons -Repository PSGallery -Force -Scope CurrentUser
 
+Write-Host "Installing chocholatey..."
+winget install chocolatey
+
 Write-Host "Please exit Windows PowerShell and Launch Windows Terminal from Start Menu. Then Run setup-shell-terminal to continue the setup.";
 
 Write-Host  'Press any key to continue..';
