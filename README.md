@@ -12,7 +12,6 @@ This repo includes two installation scripts to streamline the installation & set
 
 ![image](https://github.com/tasosq/pimp-my-terminal/assets/105006739/f3a60d3c-2482-480c-a90a-8682604b2206)
 
-
 ## Usage
 
 ### 1. Open your current shell as an Administrator
@@ -23,17 +22,19 @@ This repo includes two installation scripts to streamline the installation & set
 git clone https://github.com/tasosq/pimp-my-terminal.git
 ```
 
-### 3. Set the Execution Policy to Bypass so that you can run the scripts.
+### 3. Run the `download-dependencies.ps1` script through your existing terminal.
 
 ```
-Set-ExecutionPolicy Bypass -Scope CurrentUser
+iex -Command "Set-ExecutionPolicy Bypass -Scope Process; .\download-dependencies.ps1"
 ```
 
-### 4. Run the `download-dependencies.ps1` script through your existing terminal.
+This script installs Windows Terminal, PowerShell, Oh-my-posh , Terminal-Icons, Chocolatey and the SpaceMono Nerd Font.
 
-This script installs Windows Terminal, PowerShell, Oh-my-posh , Terminal-Icons & Chocolatey.
+### 4. Next, open the newly installed Windows Terminal (as an Admin) & run the `setup-shell-terminal.ps1` script.
 
-### 5. Next, open the newly installed Windows Terminal (as an Admin) & run the `setup-shell-terminal.ps1` script.
+```
+iex -Command "Set-ExecutionPolicy Bypass -Scope Process; .\setup-shell-terminal.ps1"
+```
 
 The script will prompt you to pick an oh-my-posh theme, after outputting all of them to the terminal for you to choose.
 
