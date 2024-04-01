@@ -1,10 +1,6 @@
 Write-Host "Initializing oh-my-posh..."
 oh-my-posh init pwsh | Invoke-Expression
 
-
-# Install Space Font
-choco install nerd-fonts-spacemono -y
-
 $PowerShellPathToJSON = "$env:LocalAppData\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
 
 $PowerShellSettings = Get-Content $PowerShellPathToJSON -raw | ConvertFrom-Json

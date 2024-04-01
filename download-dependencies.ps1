@@ -14,6 +14,9 @@ Install-Module -Name Terminal-Icons -Repository PSGallery -Force -Scope CurrentU
 Write-Host "Installing chocholatey..."
 winget install chocolatey
 
+Write-Host "Installing SpaceMono Nerd Font..."
+choco install nerd-fonts-spacemono --force -y
+
 Write-Host "Please exit Windows PowerShell and Launch Windows Terminal from Start Menu. Then Run setup-shell-terminal to continue the setup.";
 
 Write-Host  'Press any key to continue..';
